@@ -1,0 +1,49 @@
+Explanation
+Initialization:
+
+Create an empty vector of vectors (v) to store the divided subarrays.
+Sort the input vector nums in ascending order.
+Iteration:
+
+Iterate through the nums vector from index 0 to the second last element (allowing for groups of three).
+
+For each index i that's a multiple of 3:
+
+Check difference:
+Calculate the difference between the third and first elements in the potential subarray (nums[i + 2] - nums[i]).
+
+If the difference is less than or equal to k:
+
+Create subarray:
+Create a new vector containing the three elements (nums[i], nums[i + 1], nums[i + 2]).
+Add this subarray to the v vector.
+Otherwise (if the difference exceeds k):
+
+Early return:
+Return an empty vector, indicating that the division is not possible.
+Return result:
+
+If all subarrays meet the condition, return the v vector containing all the divided subarrays.
+Time Complexity-O(n*logn)
+
+  code in java :- 
+  public class Solution {
+    public int[][] divideArray(int[] nums, int k) {
+        Arrays.sort(nums);
+        int[][] result = new int[0][0];
+        
+        for (int i = 0; i + 2 < nums.length; ++i) {
+            if (i % 3 == 0) {
+                if (nums[i + 2] - nums[i] <= k) {
+                    int[] triplet = {nums[i], nums[i + 1], nums[i + 2]};
+                    result = Arrays.copyOf(result, result.length + 1);
+                    result[result.length - 1] = triplet;
+                } else {
+                    return new int[0][0];
+                }
+            }
+        }
+        
+        return result;
+    }
+}
